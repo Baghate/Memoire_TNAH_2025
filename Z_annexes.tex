@@ -1,0 +1,73 @@
+\cleardoublepage
+
+\addcontentsline{toc}{chapter}{Annexes}
+
+\appendix %Des appendices: tables figures, etc
+
+\chapter{Livrables techniques du stage}
+
+Script de nettoyage de csv en vue d'un scraping : \url{https://github.com/Baghate/Memoire_TNAH_2025/blob/main/scr/0.Nettoyage_et_manipulation_csv.ipynb}\\[2 cm]
+
+Script de scraping utilisant Selenium : \url{https://github.com/Baghate/Memoire_TNAH_2025/blob/main/scr/1.Scraping.ipynb}\\[2 cm]
+
+Script de nettoyage de pellicules photos numérisées utilisant Florence2 : \url{https://github.com/Baghate/Memoire_TNAH_2025/blob/main/scr/2.Florence.ipynb}\\[2 cm]
+
+\chapter[Synthèse entretiens Décembre 2024]{Synthèse des entretiens et questionnaire sur l'impact de l'introduction de l'IA menés par Marion Charpier - Décembre 2024}
+\label{sec:Entretiens_2024}
+
+\includepdf[pages=-, pagecommand={}, scale=0.98]{Annexes/Synthese_entretiens_Marion.pdf}
+
+\chapter[Synthèse entretiens Juillet-Août 2025]{Synthèse des entretiens et questionnaire sur l'utilisation de l'IA au département des Arts graphiques - Juillet-Août 2025}
+\label{sec:Entretiens_2025}
+
+\includepdf[pages=-, pagecommand={}, scale=0.98]{Annexes/Synthese_entretiens_Mathieu.pdf}
+\includepdf[pages=-, pagecommand={}, scale=0.98]{Annexes/Questionnaire_d_entretien_IA_2025.pdf}
+
+\chapter[Utilisation de Copilot]{Utilisation de Github Copilot - Modèle Claude Sonnet 3.5 pour script de scrapping}
+\label{sec:Copilot}
+
+\input{Annexes/Copilot.tex}
+
+\chapter[Formations Arkindex et Callico]{Formations préparées dans le cadre du Consortium PictorIA}
+\label{sec:Formations}
+
+\includepdf[pages=-, pagecommand={}, scale=0.98]{Annexes/Tutoriel_Utilisation_Arkindex.pdf}
+\includepdf[pages=-, pagecommand={}, scale=0.98]{Annexes/Tutoriel_Callico.pdf}
+
+%%%%%%%%%%%%%%%%%%
+
+\backmatter % glossaire, index, table des figures, table des matières.. (la bibliographie a déjà été appelée)
+
+
+\newpage{\pagestyle{empty}\cleardoublepage}
+
+\cleardoublepage
+\phantomsection
+\listoffigures
+\addcontentsline{toc}{chapter}{Liste des figures}
+
+
+\cleardoublepage
+\phantomsection
+\listoftables
+\addcontentsline{toc}{chapter}{Liste des tableaux}
+%\printindex
+%%%%%%%%%%%%%%%%%%%% Glossaire %%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%avec TexStudio: F9 pour compiler le glossaire (s'il y a aussi un index)
+
+%mettre les entrées du glossaire ici ou les mettre dans un fichier à part que l'on appelle ici par 
+%\loadglsentries{glossaire.tex}
+\chapter*{Glossaire}
+\label{sec:Glossaire}
+\addcontentsline{toc}{chapter}{Glossaire}
+\markboth{}{Glossaire}
+\input{glossaire}
+%Structure d'une entrée de glossaire
+%\newglossaryentry{}{%
+%	name={},%
+%	description={}
+%}
+%\printglossaries[title=Glossaire]
+\tableofcontents
