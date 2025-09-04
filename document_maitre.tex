@@ -1,0 +1,324 @@
+%Document vide aux normes de l'École nationale des Chartes
+%crée par J.B. Camps
+%Dernières modifications E. Rouquette (03/2025)
+
+%%%%%%%%%%%%%%%%%%%%%% PRÉAMBULE
+
+
+%%%%%%%%%%%%%% partie obligatoire du préambule
+\documentclass[12pt,twoside]{book}
+\usepackage{fontspec}
+\usepackage{xunicode}
+\usepackage[french]{babel} % Utiliser babel pour la gestion des langues
+\usepackage{pdfpages}
+% \usepackage{polyglossia}
+% \setdefaultlanguage[frenchfootnote=true]{french}%indiquer la langue principale du document
+% \setotherlanguage{english} %indiquer les autres langues utilisée
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% PACKAGES UTILISÉS
+
+\usepackage{csquotes}
+\setquotestyle{french} % les guillemets français
+\usepackage{lettrine} %faire une lettrine (pas obligatoire)
+\usepackage[backend=biber,style=biblatex-enc/enc,sorting=nyt,maxbibnames=10, language=french]{biblatex}%charger le style de l'EnC (téléchargeable ici https://ctan.org/pkg/biblatex-enc)
+\addbibresource{bibliographie.bib} 
+
+%%%Faire un ou plusieurs index
+
+%\usepackage{imakeidx} %pour faire un ou plusieurs index
+%\makeindex %commande pour générer l'index
+
+%RAJOUTEZ ICI VOS PACKAGES
+
+\usepackage{newunicodechar}
+\usepackage{graphicx}    % pour includegraphics
+\usepackage{subcaption}  % pour les sous-figures
+\newunicodechar{•}{\kern-.25em\textperiodcentered\kern-.25em} %Pour le point médian de l'écriture inclusive, faire alt+0183
+\newcommand{\wokisme}{\kern-.25em\textperiodcentered\kern-.25em} % Pour l'écriture inclusive comme ça je peux l'appeler avec une commande
+\usepackage{listings} % Pour citer du code
+\usepackage{graphicx}
+\usepackage{float} % Pour fixer les figures et qu'elles ne bougent pas au gré des envies d'Overleaf.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% CONFIGURATION DE MISE EN PAGE
+
+%%%%%% Les compteurs (sections, subsections, etc)
+\renewcommand{\thechapter}{\arabic{chapter}} % Chapitre en chiffres romains
+\renewcommand{\thesection}{\thechapter.\arabic{section}} % Section = Numéro de chapitre + numéro de section
+\renewcommand{\thesubsection}{\thesection.\arabic{subsection}} % Subsection = section.sous-section
+\renewcommand{\thesubsubsection}{\thesubsection.\arabic{subsubsection}} % Subsubsection = subsection.sous-sous-section
+\setcounter{tocdepth}{3} % jusqu'à subsubsection dans la table des matières
+\setcounter{secnumdepth}{3} % numérotation affichée jusqu'à subsubsection
+
+%%%%%  Configurer le document selon les normes de l'école
+\usepackage{minted} % Pour les blocs de code en couleur
+\usepackage{ulem}   % Pour le soulignement
+\usepackage[margin=2.5cm]{geometry} %marges
+\geometry{margin=2.5cm}
+\usepackage{setspace} % espacement qui permet ensuite de définir un interligne
+\onehalfspacing % interligne de 1.5
+\setlength\parindent{1cm} % indentation des paragraphes à 1 cm
+
+%%%%% Mise en forme des headers (haut de page)
+
+\usepackage{fancyhdr} %package utilisé pour modifier les headers
+\pagestyle{fancy} %utiliser ses propres choix de mise en page et non ceux par défaut du package
+
+\setlength\headheight{16pt}%la hauteur des headers
+
+%%la façon dont les sections apparaissent dans les en-tête:
+
+\renewcommand{\sectionmark}[1]{\markright{\small\textit{\thesection~\  #1}}}%Faire apparaître dans les headers les sections en petit et en italiques
+%\renewcommand{\sectionmark}[1]{}%Commenter la lign précédetne et mettre celle-ci pour ne pas avoir le titre des sections dans le header
+
+%% réglages propres à frontmatter
+
+\appto\frontmatter{\pagestyle{fancy}%
+\renewcommand{\chaptermark}[1]{\markboth{\small\textit{#1}}{}}% ne pas faire apparaître de <<numéro>> de chapitre dans les chapitres non numérotés (front: l'introduction, els remerciement, etc)
+}
+
+%% réglages propres à mainmatter
+
+\appto\mainmatter{
+\renewcommand{\chaptermark}[1]{\markboth{\small\chaptername~\thechapter~--\ \textit{#1}}{}}}
+
+% Redéfinir les marqueurs pour ne pas inclure les sections
+\renewcommand{\sectionmark}[1]{}  % Ne rien faire pour les sections
+
+%% réglages propres aux annexes
+\appto\appendix{
+  \renewcommand{\chaptername}{Annexe} % Supprime "Chapitre"
+  %\renewcommand{\thechapter}{}  % Supprime le numéro
+}
+
+
+%% réglages propres au backmatter
+\appto\backmatter{
+  \renewcommand{\chaptermark}[1]{}
+}
+
+% Redéfinir les marqueurs pour ne pas inclure les sections
+\renewcommand{\sectionmark}[1]{}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%% Package hyperref
+
+% A mettre après les autres appels de packages car redéfinit certaines commandes).
+
+\usepackage[colorlinks=false, breaklinks=true, pdfusetitle, pdfsubject ={Mémoire TNAH}, pdfkeywords={les mots-clés}]{hyperref} %
+\usepackage[numbered]{bookmark}%va avec hyperref; marche mieux pour les signets. l'option numbered: les signets dans le pdf sont numérotés
+
+% Compléter pdfsubjet et pdfkeywords
+% Explication des options de hyperref (modifiables)
+% hyperindex=false
+% colorlinks=false: pour que le cadre des liens n'apparaisse pas à l'impression
+% breaklinks permet d'avoir des liens allant sur pusieurs lignes
+%pdfusetitle: utiliser \author et \title pour produire le nom et le titre du pdf
+
+
+%avec overleaf, utiliser :
+% \usepackage[xetex]{hyperref}
+% \hypersetup{
+% 		pdfauthor = {Mathieu Taybi},
+% 		pdftitle = {Memoire_M2_TNAH_2025},
+% 		pdfsubject = {L'IA au Musée des Arts Décos},
+% 		pdfkeywords = {\textit{computer vision}} {\textit{machine learning}} {indexation des œuvres}
+% 	}
+
+
+%%%%%%%%%%%%%%%%%%%% Package glossaries
+
+%Exception: il faut le charger APRÈS hyperref
+\usepackage[toc=true]{glossaries}
+\makeglossaries
+
+%%%%%%%%%%%%%%%%%% DÉFINITION DES COMMANDES ET ENVIRONNMENTS
+
+ %%%%%%%%%%%%%% INFORMATIONS POUR LA PAGE DE TITRE
+ 
+\author{Mathieu \textsc{Taybi} - M2 TNAH}
+\title{L'IA au musée des Arts Décoratifs}
+
+%%%%%%%%%%%%%%%%%%%%%% DOCUMENT
+\begin{document}
+	\begin{titlepage}
+		\begin{center}
+			
+			\bigskip
+			
+			\begin{large}				
+				ÉCOLE NATIONALE DES CHARTES\\
+				UNIVERSITÉ PARIS, SCIENCES \& LETTRES
+			\end{large}
+			\begin{center}\rule{2cm}{0.02cm}\end{center}
+			
+			\bigskip
+			\bigskip
+			\bigskip
+			\begin{Large}
+				\textbf{Mathieu Taybi}\\
+			\end{Large}
+		%selon le cas
+			\begin{normalsize} \textit{licencié ès de philosophie}\\
+				\textit{diplômé de master de philosophie et d'histoire}
+			\end{normalsize}
+			
+			\bigskip
+			\bigskip
+			\bigskip
+			
+			\begin{Huge}
+				\textbf{L'IA au musée des Arts décoratifs}\\
+			\end{Huge}
+			\bigskip
+			\bigskip
+			\begin{LARGE}
+				\textbf{Perspectives et opportunités pour le traitement massif des collections patrimoniales}\\
+			\end{LARGE}
+			
+			\bigskip
+			\bigskip
+			\bigskip
+			\begin{large}
+			\end{large}
+			\vfill
+			
+			\begin{large}
+				Mémoire 
+				pour le diplôme de master \\
+				« Technologies numériques appliquées à l'histoire » \\
+				\bigskip
+				2025
+			\end{large}
+			
+		\end{center}
+	\end{titlepage}
+	
+\frontmatter
+
+%%%%%%%%%%%%%%%%%%%% RESUMÉ %%%%%%%%%%%%%%%%%%%%%%%%%%
+
+	\chapter{Résumé}
+\medskip
+	Ce mémoire a été réalisé à la suite d'un stage de 6 mois au sein du Département des Arts graphiques du musée des Arts décoratifs de Paris. L'objectif principal de ce stage était d'explorer et de mettre en place plusieurs outils technologiques de reconnaissance d'images dans le cadre du traitement des collections du musée. Nous avons poursuivi cet objectif en empruntant deux voies distinctes et complémentaires. La première était centrée sur un projet d'apprentissage supervisé avec un modèle de \textit{computer vision} sur le fonds de dessins du designer Jean Royère, afin d'automatiser la reconnaissance des motifs et des meubles sur les calques et les gouaches qu'il a produit. La seconde se concentrait sur le recueil des besoins, la formation et l'acculturation des équipes scientifiques aux nouveaux outils et procédés utilisant l'intelligence artificielle. Nous avons cherché à retranscrire en termes technologiques les demandes pratiques des équipes du musée qui ont pour mission la gestion et la conservation des collections d'arts graphiques. 
+    
+    Ce mémoire s'attache donc à décrire les différentes approches et technologies déployées pour appliquer un traitement de \textit{computer vision} à des collections patrimoniales uniques dans un musée tout aussi unique. Nous présentons un regard rétrospectif sur le musée, un état des lieux de sa situation, un compte-rendu des résultats obtenus par les technologies déployées ainsi que différentes stratégies et perspectives pour l'intégration durable des nouveaux outils d'intelligence artificielle dans le cadre du traitement des collections. \\
+	
+	\textbf{Mots-clés:} TNAH ; \textit{Computer vision} ; \textit{Machine learning} ; Intelligence artificielle ; YOLO ; Indexation des œuvres ; Histoire du musée.
+    
+%%%%%%%%%%%%%%%%%%%% MOT-CLEFS & CITATION %%%%%%%%%%%%%%%%
+
+	\textbf{Informations bibliographiques:} Mathieu Taybi, \textit{L'IA au musée des Arts décoratifs. Perspectives et opportunités pour le traitement massif des collections patrimoniales}, mémoire de master « Technologies numériques appliquées à l'histoire », dir. Marion Charpier, École nationale des chartes, 2025.
+
+%%%%%%%%%%%%%%%%%%%% REMERCIEMENTS %%%%%%%%%%%%%%%%%%%%%%
+
+	\chapter{Remerciements}
+    
+Je tiens à remercier tout d'abord Sonia Aubès pour m'avoir accueilli au sein du Département des Arts graphique du musée des Arts décoratifs de Paris, et pour sa relecture du présent travail. Je remercie également toute l'équipe du département pour leur accueil exceptionnel et leur gentillesse. Je remercie spécifiquement Sébastien Quéquet du département pour son enthousiasme dans le projet et pour sa participation au jury de soutenance.
+
+Je remercie chaleureusement Marion Charpier pour sa supervision, sa bonne humeur et ses précieux conseils tout au long de ce stage unique et stimulant. Je remercie aussi Emmanuelle Bermès pour son encadrement, sa direction et pour m'avoir fait confiance sur ce projet. Je remercie Nathan Schlanger d'avoir accepté de présider le jury de soutenance.
+
+Je remercie tout particulièrement Léa pour sa relecture patiente et bienveillante, et pour ses précieux conseils qui m'ont permis de clarifier mon propos et de reformuler certains passages obscurs. 
+
+Je remercie aussi tous\wokisme tes les ami\wokisme e\wokisme s, de Paris et d'ailleurs, qui m'ont permis d'aborder cette aventure nouvelle dans le monde de l'informatique appliquée aux sciences humaines, et de partager mes peines et mes joies pendant cette année dense et rude à plusieurs égards. 
+
+Sans oublier de remercier particulièrement Francesca pour sa présence à mes côtés, sa vivacité d'esprit et sa relecture attentionnée.
+
+Enfin, je tiens à remercier Shiva, petite boule de poils qui me suit depuis 10 ans déjà, de m'avoir accompagné et apporté son soutien muet et indéfectible, surtout pendant la dernière phase de ce travail de rédaction .
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%% BIBLIOGRAPHIE %%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+        
+\nocite{*}
+\chapter{Bibliographie}
+\section*{}
+\defbibheading{firstlevel}{\section*{#1}}
+\defbibheading{secondlevel}{\subsection*{#1}}
+
+\printbibliography[keyword=Archives, title=Archives, heading=firstlevel]
+\clearpage
+\printbibliography[keyword=Articles, title=Articles, heading=firstlevel]
+\printbibliography[keyword=Po, title=Discours politiques et interviews, heading=firstlevel]
+\printbibliography[keyword=Législation, title=Législation, heading=firstlevel]
+\printbibliography[keyword=Monographies, title=Monographies, heading=firstlevel]
+\printbibliography[keyword=Th, title=Thèses et mémoires, heading=secondlevel]
+\printbibliography[keyword=Sites web, title=Sites web, heading=firstlevel]
+\printbibliography[keyword=Vid, title=Vidéos, heading=firstlevel]
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%% CORPS DU MEMOIRE %%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%% INTRO %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+	
+\chapter{Introduction}
+
+Le présent travail intervient à la fin de la première année de lancement du projet TORNE-H au musée des Arts décoratifs. L'acronyme du projet signifie \enquote{Traitement d'objets par reconnaissance numérique en environnement humain}. Il est aussi l'anagramme d'Henrot, nom du photographe autour duquel s'est agencé l'idée du projet. Il est le fruit d'une collaboration entre trois institutions : la Bibliothèque Nationale de France, par l'entremise de son chef de mission Intelligence Artificielle Jean-Philippe Moreux ; le Centre Jean Mabillon de l'École des Chartes sous la direction d'Emmanuelle Bermès ; et le musée des Arts décoratifs sous les auspices de Camille Herody, directrice générale adjointe du musée. Il a été rendu possible grâce à un financement du Ministère de la Culture dans le cadre du Fonds d’accompagnement à la transformation numérique et à la cybersécurité des établissements du ministère de la Culture (FTNC). 
+
+Le projet se place dans le cadre de la nouvelle stratégie \textit{data} du musée des Arts décoratifs. Il ambitionne de \enquote{mettre au point des flux de traitements des collections muséales avec une utilisation de l'intelligence artificielle pour l'analyse et la description automatique des données visuelles}\footnote{\cite{grim_vision_2024}. p. 8.}. Il est le résultat de deux ans de tests préalables, pilotés par Marion Charpier et Emmanuelle Bermès, sur le fonds du designer Jean Royère (1902-1981), riche de 18 000 dessins et gouaches non décrites. Cette première phase a consisté en une réflexion sur les outils et les méthodes à adopter dans le cadre d'une tâche de description de fonds patrimoniaux. Elle s'est accompagnée d'un travail de compréhension et de recueil des besoins des personnels du musée, afin de cibler au mieux les outils et procédés adaptés et réplicables à d'autres contextes et collections. L'un des enjeux principaux pour le musée est d'être en mesure de décrire ses collections pour venir alimenter la base de données. Les personnels du musée estiment que seulement 30\% des collections sont décrites, et pour le département des Arts graphiques seul, cela représente 700 000 pièces non décrites ou inventoriées. \hfill \break
+\hfill \break
+
+Dans ce cadre, les équipes du musée veulent avoir recours à des processus automatisés comme la vision par ordinateur tout en gardant une exigence haute de fiabilité. Le \textit{workflow} qui a été construit pendant ce projet se base sur un dialogue constant avec les équipes scientifiques du musée et sur la nécessaire validation des informations produites par les responsables des collections. Dans le sillage de la refonte de sa stratégie \textit{data}, adoptée en octobre 2023, le musée a fait appel au centre Jean Mabillon pour explorer les techniques avancées d'analyses d'images par IA. \enquote{Il s’agit de démontrer la valeur ajoutée de l’IA pour le traitement des collections et
+de tester l’intégration des données générées au sein des processus métiers propres à la gestion
+des collections nationales. La data structure et les stratégies d’entraînements adoptées au
+terme du projet Royère constitueront un socle technique dans la mise au point de la nouvelle
+infrastructure numérique du musée – applicable à l’ensemble de ses collections}\footnote{\cite{grim_vision_2024}. p. 8.}.
+
+Nous revenons ici sur quelques notions fondamentales en traitement automatisé et en intelligence artificielle, afin de poser certains définitions que nous devons manipuler par la suite. Tout d'abord qu'est-ce que l'intelligence artificielle ? Elle est définie par la CNIL comme \enquote{un procédé logique et automatisé reposant généralement sur un algorithme et en mesure de réaliser des tâches bien définies. Pour le Parlement européen, constitue une intelligence artificielle tout outil utilisé par une machine afin de \textquotedblleft reproduire des comportements liés aux humains, tels que le raisonnement, la planification et la créativité \textquotedblright{}}\footnote{\cite{cnil_intelligence_nodate}}. Elle est de deux types : elle peut être connexionniste ou symbolique. Dans le premier cas, elle s'inspire du fonctionnement du cerveau humain et de son réseau de neurones biologiques, elle ne s'appuie pas sur des règles explicites, mais \enquote{apprend} à partir de données pour extraire des motifs et des relations à partir de nouvelles données\footnote{\cite{charpier_atelier_2025}}.Dans le second cas, elle s'appuie sur des règles explicites préprogrammées pour prendre des décisions. Elle ne demande pas de passer par un apprentissage à partir de données mais elle suit des règles préétablies. 
+
+Maintenant, qu'est-ce la vision par ordinateur ou \textit{computer vision} ? \enquote{La vision par ordinateur est une branche de l’intelligence artificielle dont le principal but est de permettre à une machine d’analyser et traiter une ou plusieurs images ou vidéos prises par un système d’acquisition}\footnote{\cite{carius_lexique_2024}}. La vision par ordinateur utilise un modèle d'IA de type connexionniste. Un modèle IA est un algorithme capable (avec plus ou moins d’efficacité) d’effectuer un ensemble de tâches pour lesquelles on l’a entraîné\footnote{\cite{noauthor_quest-ce_2023}}. Il reçoit un type de données en entrée, et en propose un autre en sortie. Le terme “modèle” s’applique en IA peu importe le domaine. On appelle un modèle qui peut recevoir plusieurs types de données en entrée (par exemple texte ET image), un modèle multimodal. On distingue aussi généralement les modèles spécialisés, capables de réaliser une unique tâche (par exemple détecter les visages sur une image), des modèles généralistes capables de réaliser des tâches très variées (comme la plupart des \textit{Large Language Models}). Les modèles spécialisés requièrent habituellement moins de puissance de calcul que les généralistes.
+
+Pour l'entraînement des modèles on distingue deux approches : la première est l'apprentissage machine ou l'apprentissage automatique, c'est-à-dire sans supervision. Il consiste en un \enquote{processus par lequel un algorithme évalue et améliore ses performances sans l’intervention d’un programmeur, en répétant son exécution sur des jeux de données jusqu’à obtenir, de manière régulière, des résultats pertinents. Un algorithme d’apprentissage automatique comporte un modèle dont il modifie les paramètres, de valeur initiale en général aléatoire, en fonction du résultat constaté.}\footnote{\cite{carius_lexique_2024}}. La seconde est l'apprentissage au sein duquel on trouve des interventions humaines explicites comme l'apprentissage supervisé ou l'apprentissage par renforcement\footnote{\textit{cf}. le \textbf{\hyperref[sec:Glossaire]{Glossaire}} pour les termes \enquote{apprentissage supervisé} et \enquote{apprentissage par renforcement}, p.~\pageref{sec:Glossaire}.}.
+
+Afin de comprendre le projet qui a précédé le notre, nous devons parler de la spécificité du fonds Royère. En premier lieu, il est clos, c'est-à-dire qu'il ne recevra plus de nouvelles additions. Il comprend la majeure partie de la production de l'artiste, légué après sa mort. Il se compose de vues, en couleurs ou au fusain, de meubles ou de pièces qu'il a réalisé pour ses clients. De même, on dispose aussi d'un plan de classement réalisé par l'artiste et il y a une grande récurrence des mêmes types d'objets dans les dessins. C'est d'ailleurs ce qui a pu amener à l'établissement d'une ontologie fixe pour le traitement automatisé. Quelle a donc été la nature de ce traitement ?
+
+Les résultats de ce premier projet font apparaître plusieurs éléments déterminantes sur lesquelles le projet TORNE-H a été bâti. Dans la démarche de comparaison des performances des modèles, deux approches ont été explorées : l'une via l'apprentissage supervisé avec \mbox{YOLOv8} et l'autre via un modèle \textit{zero-shot} Clip développé par OpenAI\footnote{\textit{cf}. le \textbf{\hyperref[sec:Glossaire]{Glossaire}} pour le terme \enquote{Clip} , p.~\pageref{sec:Glossaire}.}. Ici il faut entendre \textit{zero-shot} comme un modèle n'étant pas passé par une phase d'entraînement. Clip est un modèle qui a été entraîné sur 1,28 millions d'images issues d'internet et accompagnées de légendes, et il se base sur cette connaissance pour décrire les choses qu'on lui propose. \hfill \break
+
+L'intérêt de ce modèle réside dans sa \enquote{capacité [...] à réaliser une
+tâche pour laquelle il n’a pas été spécifiquement entraîné. Cela est possible grâce à l’espace
+d’enchâssement vectoriel constitué lors de l’entraînement de CLIP\footnote{\textit{cf}. \enquote{Espace vectoriel} dans le \textbf{\hyperref[sec:Glossaire]{Glossaire}}, p.~\pageref{sec:Glossaire}.}. Les représentations vectorielles
+lui permettent de correctement associer des images et des descriptions textuelles jamais
+vues pendant son apprentissage}\footnote{\cite{grim_vision_2024}. p. 63.}. Cependant, l'approche qui a été privilégiée, et dont nous avons hérité est celle de l'apprentissage supervisé par l'entraînement d'un modèle YOLO avec une ontologie définie.
+
+Dans les grandes lignes un processus d'entraînement par \textit{fine-tuning} consiste en une boucle de traitement qui a pour but la spécialisation d'un modèle pré-existant, ici YOLOv8, sur une tâche, ici la reconnaissance des meubles du fonds Royère\footnote{\textit{cf}. le \textbf{\hyperref[sec:Glossaire]{Glossaire}} pour le terme \enquote{\textit{fine-tuning}}, p.~\pageref{sec:Glossaire}.}. Ce processus passe par une phase d'annotation manuelle de données afin de constituer une vérité terrain\footnote{\textit{cf}. le \textbf{\hyperref[sec:Glossaire]{Glossaire}} pour les termes \enquote{vérité terrain} et \enquote{annotation manuelle}, p.~\pageref{sec:Glossaire}.}. Cette vérité terrain est le standard, la source fiable d'informations pour l'algorithme, parce que réalisé à la main. Ensuite, on entraîne l'algorithme à partir de cette vérité terrain pour lui apprendre à reconnaître les objets, via un système de poids et de biais en le lançant d'abord sur les mêmes images que la vérité terrain afin de produire des \textit{metrics} pour mesurer ses performances\footnote{\textit{cf}. le \textbf{\hyperref[sec:Glossaire]{Glossaire}} pour le terme \enquote{\textit{metrics}}, p.~\pageref{sec:Glossaire}.}. Puis on le lance sur des images qu'il ne connaît pas et on répète le processus en corrigeant ses prédictions, en ajoutant ces corrections à la vérité terrain et ainsi de suite, jusqu’à obtenir des \textit{metrics} satisfaisantes. Nous reviendrons sur le détail de ce processus et de ces \textit{metrics} dans la partie dédiée au \textit{machine learning} dans le chapitre 5.
+
+Pour notre part, après cette mission technique de développement et de raffinement des solutions proposées nous intervenons au niveau de la réflexion sur la stratégie à adopter pour l'introduction pérenne d'outils d'IA dans le musée. Nous avons été auprès des équipes pour participer à leur acclimatation à ces outils, pour recueillir les avis et attentes des personnels, et pour mettre en œuvre un premier processus de MLOps au sein du musée avec ses infrastructures existantes\footnote{\textit{cf}. le \textbf{\hyperref[sec:Glossaire]{Glossaire}} pour le terme \enquote{MLOps}, p.~\pageref{sec:Glossaire}.}. Ce travail de rédaction est le reflet de cette activité, et il va tenter de répondre à plusieurs questions indispensables pour la mise en place d'un modèle d'intelligence artificielle dans le but de décrire les collections du musée. 
+
+Nous nous interrogeons sur les limites et opportunités qu'offrent les modèles actuels pour la description patrimoniale. Ce faisant nous nous posons la question de la dette technique et du passif d'une institution vis-à-vis de son traitement des collections. Nous interrogeons en outre l'état de l'art dans la recherche en humanités numériques, sur des questions de recherches similaires, afin de voir quels choix ont été faits et quels problèmes ont été rencontrés ailleurs. Enfin, nous tentons de souligner les obstacles et points de vigilances à garder en tête au sujet de l'introduction d'une technologie d'intelligence artificielle dans le cadre de collections publiques et d'institutions patrimoniales.
+
+Afin de répondre à ces questions, nous commençons ce travail par un bref retour rétrospectif sur l'histoire de l'Union Centrale des Arts Décoratifs depuis le milieu du \textsc{xix}\textsuperscript{e}~siècle jusqu'à nos jours. Cette partie nous permet de replacer la spécificité du MAD dans son contexte, d'étudier son évolution organisationnelle, l'émergence de l'idée d'un musée dédié aux arts décoratifs, l'importance de l'initiative privée et le rôle de l'État dans cette institution. Elle permet aussi de donner à voir la manière dont les collections se sont constituées au fil du temps afin de mieux saisir la particularité de celles-ci et les problèmes qu'elles posent aux personnels scientifiques aujourd'hui. 
+
+Dans un second temps, nous traitons de l'environnement de recherche dans lequel se situe le projet en le replaçant au sein des interactions et institutions auquel il appartient. Nous passons en revue un certains nombre d'acteurs, publiques ou privés, qui participent à l'élaboration de ces nouveaux terrains de recherches en sciences humaines, permis par les avancées technologiques récentes. Puis, nous rendons compte de notre mission vis-à-vis de l'entraînement du modèle pour la production des notices d'inventaires du fonds Royère, et nous abordons la production de code et le déploiement logiciel que nous avons mené. Enfin, nous revenons sur le fruit des entretiens menés sur les équipes à propos de leur utilisation de l'IA.
+
+Ainsi, fort de ces connaissances et de cette vue sur le contexte institutionnel et théorique dans lequel s'inscrit l'IA, nous tentons, dans une dernière partie, d'ouvrir la discussion sur les limitations identifiées et les préconisations pour l'introduction durable de la \textit{computer vision} au musée de Arts décoratifs spécifiquement, et plus généralement dans une institution patrimoniale. 
+
+\mainmatter
+
+%%%%%%%%%%%%%% PART 1 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\input{partie_1.tex}
+
+%%%%%%%%%%%%%% PART 2 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\input{partie_2.tex}	
+
+%%%%%%%%%%%%%% PART 3 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\input{partie_3.tex}	
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%% ANNEXES %%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\input{Z_annexes.tex}		
+
+%%%%%%%%%%%%%%%%%%
+
+\end{document}
