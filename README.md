@@ -1,5 +1,6 @@
 # Memoire_TNAH_2025
 
+Travail de rédaction pour l'obtention du diplôme de Master Technologies numériques appliquées à l'histoire de l'École nationale des chartes, année 2024-2025.
 
 ## Sujet : L’IA au musée des Arts décoratifs, Perspectives et opportunités pour le traitement massif des collections patrimoniales.
 
